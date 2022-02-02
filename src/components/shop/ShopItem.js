@@ -58,7 +58,8 @@ function ShopItem({
                         component="img"
                         alt=""
                         height="140"
-                        image={BaseApi + prodImg.url}
+                        // image={BaseApi + prodImg.url}
+                        image={prodImg.url}
                         title={prodName}/>
 
                     <h3 className='product-name'>

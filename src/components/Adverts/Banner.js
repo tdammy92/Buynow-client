@@ -85,8 +85,10 @@ const {prodImg,prodName,prodPrice} = Item || ''
 
        <div className="img-container">
            <img
-               src={BaseApi + prodImg
+               src={ prodImg
                ?.url}
+              //  src={BaseApi + prodImg
+              //  ?.url}
                alt={prodName}/>
 
        </div>

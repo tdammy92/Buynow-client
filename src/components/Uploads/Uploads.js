@@ -70,6 +70,17 @@ const useStyles = makeStyles((theme) => ({
 
 function Uploads() {
 
+    const {jwt} = JSON.parse(localStorage.getItem('user'));
+
+    const config = {
+        headers: {
+            "Content-type": "application/json",
+             "Authorization": `Bearer ${jwt}`,
+        },
+   };
+
+ 
+
     const classes = useStyles();
     const theme = useTheme();
     const [value,
@@ -155,7 +166,7 @@ function Uploads() {
         await ImgData.append('field', field)
 
         axios
-            .post(`${BaseApi}/upload`, ImgData)
+            .post(`${BaseApi}/upload`, ImgData,config)
             .then(res => {
                 console.log(res.statusText);
                 if (res.status === 200) {
@@ -177,7 +188,7 @@ function Uploads() {
         }
 
         axios
-            .post(`${BaseApi}/categories`, newCategory)
+            .post(`${BaseApi}/categories`, newCategory, config)
             .then(res => {
                 if (res.status === 200) {
 
@@ -195,8 +206,8 @@ function Uploads() {
 
         const newProd = {
             prodName: ProdName,
-            prodPrice: + ProdPrice,
-            prodQty: + ProdQty,
+            prodPrice: +ProdPrice,
+            prodQty: +ProdQty,
             prodImg: '',
             prodDesc: ProdDescription,
             category: [ProdCat]
@@ -204,7 +215,7 @@ function Uploads() {
 
         console.log(newProd);
         axios
-            .post(`${BaseApi}/products`, newProd)
+            .post(`${BaseApi}/products`, newProd, config)
             .then(res => {
                 if (res.status === 200) {
                     UploadImage(newProdImge, 'product', res.data.id, 'prodImg')
@@ -222,6 +233,9 @@ function Uploads() {
             ?.role.name !== 'Admin') {
         return <Redirect to='/'/>
     }
+
+
+console.log(GetCat);
 
     return (
         <div className={classes.root}>
@@ -312,7 +326,7 @@ function Uploads() {
                             variant='contained'
                             color='primary'
                             type='submit'
-                            disabled={!ProdName && !ProdPrice && !ProdQty && !ProdCat}>
+                            disabled={!ProdName || !ProdPrice || !ProdQty || !ProdCat}>
                             Add Product</Button>
 
                     </form>

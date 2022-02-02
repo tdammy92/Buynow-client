@@ -17,9 +17,14 @@ function Shop() {
 
 	const { CheckUser } = Store();
 
+
+
 	useEffect(() => {
 		CheckUser();
 	}, []);
+
+
+
 
 	useEffect(() => {
 		async function getCategory() {
@@ -31,6 +36,7 @@ function Shop() {
 				})
 				.catch((err) => {
 					console.log(err);
+					setLoaDer(false);
 				});
 		}
 
@@ -42,6 +48,7 @@ function Shop() {
         axios
             .get(`${BaseApi}/products`)
             .then((res) => {
+				console.log(res.data);
                 setProducts(res.data);
             })
             .catch((err) => {
@@ -74,7 +81,7 @@ function Shop() {
 	}, [filter]);
 
   
-
+console.log(Products);
   
 
 	return (
@@ -113,9 +120,13 @@ function Shop() {
 
 							<div>
 								<div className='product-row-container'>
-									{Products.map((item) => {
+
+
+								{     
+									Products.map((item) => {
 										return <ShopItem key={item.id} {...item} />;
-									})}
+									})
+									}
 								</div>
 							</div>
 						</div>

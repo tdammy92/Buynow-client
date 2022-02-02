@@ -43,7 +43,8 @@ function showCategory(catName){
                 <CardActionArea>
                     <CardMedia
                     className={classes.media}
-                    image={BaseApi + catImg?.url}
+                    // image={BaseApi + catImg?.url}
+                    image={catImg?.url}
                     
                     title={catName}
                     />
